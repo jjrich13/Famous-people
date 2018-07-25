@@ -5,12 +5,17 @@ class Body extends Component{
         super(props)
 
         this.state = {
-            person:
-                {
-                    name: '',
-                    role: '',
-                    popularity: 0
-                }
+            personList:
+                [{
+                    name: 'Tom Cruise',
+                    role: 'Mission Impossible',
+                    popularity: 10
+                }],
+            newPerson: {
+                name: '',
+                role: '',
+                popularity: ''
+            }
             
             
         };
@@ -18,8 +23,8 @@ class Body extends Component{
 
     handleChange = (propertyName) => (event) => {
         this.setState({
-            person : {
-                ...this.state.person,
+            newPerson : {
+                ...this.state.newPerson,
                 [propertyName] : event.target.value
             }
         })
@@ -47,7 +52,8 @@ class Body extends Component{
         console.log(this.state);
         event.preventDefault();
         this.setState({
-            person: {
+            personList: [...this.state.personList, this.state.newPerson],
+            newPerson : {
                 name: '',
                 role: '',
                 popularity: ''
@@ -56,18 +62,25 @@ class Body extends Component{
     }
 
     render(){
+
+        let personListItemArray = this.state.personList.map( (person, index) => {
+            return <li key={index}>The person {person.name} is famous for {person.role} and has a popularity rating of {person.popularity}/10</li>
+          });
+        
         return(
             <div>
             <p>Add New Person</p>
             <form onSubmit={this.handleClick}>
-                <input value={this.state.person.name} type="text" placeholder="name" onChange={this.handleChange('name')}/>
-                <input value={this.state.person.role} type="text" placeholder="role" onChange={this.handleChange('role')}/>
-                <input value={this.state.person.popularity} type="number" placeholder="popularity" onChange={this.handleChange('popularity')}/>
+                <input value={this.state.newPerson.name} type="text" placeholder="name" onChange={this.handleChange('name')}/>
+                <input value={this.state.newPerson.role} type="text" placeholder="role" onChange={this.handleChange('role')}/>
+                <input value={this.state.newPerson.popularity} type="number" placeholder="popularity" onChange={this.handleChange('popularity')}/>
 
                 <input type="submit" />
             </form>
-            <p>{this.state.person.name} is famous for: {this.state.person.role}, and is this popular: {this.state.person.popularity}</p>
-
+            {/* <p>{this.state.person.name} is famous for: {this.state.person.role}, and is this popular: {this.state.person.popularity}</p> */}
+            <ul className="App-intro">
+                {personListItemArray}
+             </ul>
 
             </div>
         )
