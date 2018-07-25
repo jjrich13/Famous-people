@@ -7,8 +7,8 @@ class Body extends Component{
         this.state = {
             person:
                 {
-                    name: 'Will Smith',
-                    role: 'Fresh Prince of Bel Air',
+                    name: '',
+                    role: '',
                     popularity: 0
                 }
             
@@ -25,26 +25,34 @@ class Body extends Component{
         })
     }
 
-    handleNameChange = (event) =>{
-        this.setState({
-            person : {
-                ...this.state.person,
-                name : event.target.value
-            }
-        })
-    }
+    // handleNameChange = (event) =>{
+    //     this.setState({
+    //         person : {
+    //             ...this.state.person,
+    //             name : event.target.value
+    //         }
+    //     })
+    // }
 
-    handleRoleChange = (event) =>{
-        this.setState({
-            person : {
-                ...this.state.person,
-                role : event.target.value
-            }
-        })
-    }
+    // handleRoleChange = (event) =>{
+    //     this.setState({
+    //         person : {
+    //             ...this.state.person,
+    //             role : event.target.value
+    //         }
+    //     })
+    // }
 
     handleClick = (event) =>{
         console.log(this.state);
+        event.preventDefault();
+        this.setState({
+            person: {
+                name: '',
+                role: '',
+                popularity: ''
+            }
+        })
     }
 
     render(){
@@ -52,9 +60,9 @@ class Body extends Component{
             <div>
             <p>Add New Person</p>
             <form onSubmit={this.handleClick}>
-                <input type="text" placeholder="name" onChange={this.handleChange('name')}/>
-                <input type="text" placeholder="role" onChange={this.handleChange('role')}/>
-                <input type="number" placeholder="popularity" onChange={this.handleChange('popularity')}/>
+                <input value={this.state.person.name} type="text" placeholder="name" onChange={this.handleChange('name')}/>
+                <input value={this.state.person.role} type="text" placeholder="role" onChange={this.handleChange('role')}/>
+                <input value={this.state.person.popularity} type="number" placeholder="popularity" onChange={this.handleChange('popularity')}/>
 
                 <input type="submit" />
             </form>
